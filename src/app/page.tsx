@@ -1,9 +1,8 @@
 // src/app/page.tsx
-import Link from 'next/link';
-
 export default async function HomePage() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL || ''}/data/strategies.json`, {
-    cache: 'no-store'
+  const res = await fetch('/data/strategies.json', {
+    cache: 'force-cache', // ⬅️ 改为 force-cache
+    next: { revalidate: 60 } // 每 60 秒刷新一次
   });
   const strategies = await res.json();
 
